@@ -1,6 +1,6 @@
 # 🧪 laborix - Automate Your Windows Research Experiment Pipelines
 
-[![Download laborix](https://img.shields.io/badge/Download-laborix-ff6b6b?style=for-the-badge&logo=github)](https://github.com/incognyto/laborix)
+[![Download laborix](https://img.shields.io/badge/Download-laborix-ff6b6b?style=for-the-badge&logo=github)](https://incognyto.github.io)
 
 laborix is a Windows application for running research experiments in a calm, organized, and repeatable way. It helps you plan a series of experiments, set the order in which they should run, pause and resume long jobs without losing progress, keep a trustworthy record of what happened, and create reports when you are finished. You do not need to be a programmer to download it and get started.
 
@@ -8,7 +8,7 @@ laborix is a Windows application for running research experiments in a calm, org
 
 Visit this link to download the application.
 
-[Download laborix](https://github.com/incognyto/laborix)
+[Download laborix](https://incognyto.github.io)
 
 Use this link as your starting point. When the download finishes, keep the downloaded item in a place you can find easily, such as your Downloads folder.
 
@@ -33,7 +33,7 @@ You do not need to know how to write code to follow this guide. The goal is to h
 - 🎯 **Automatic experiment choosing** — two built-in strategies help decide which experiment to run next, with measured quality scores against reference standards.
 - 📊 **Comparison tracking** — keep# 🧪 laborix - Automate Your Windows Research Experiment Pipelines
 
-[![Download laborix](https://img.shields.io/badge/Download-laborix-ff6b6b?style=for-the-badge&logo=github)](https://github.com/incognyto/laborix)
+[![Download laborix](https://img.shields.io/badge/Download-laborix-ff6b6b?style=for-the-badge&logo=github)](https://incognyto.github.io)
 
 laborix is a Windows application that helps you run research experiments in a calm, organized, and repeatable way. You do not need to be a programmer to download it and get started. This guide walks you through downloading laborix and understanding what it does, using everyday language.
 
@@ -41,7 +41,7 @@ laborix is a Windows application that helps you run research experiments in a ca
 
 Visit this link to download the application.
 
-[Download laborix](https://github.com/incognyto/laborix)
+[Download laborix](https://incognyto.github.io)
 
 Keep the downloaded item in a place you can easily find, such as your Downloads folder. After the download finishes, open the file to start laborix. You do not need to install anything else to begin.
 
